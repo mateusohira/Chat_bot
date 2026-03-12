@@ -4,8 +4,11 @@
     "remoteUser": "root",
     "overrideCommand": false,
     "containerEnv": {
-        "DISPLAY": ":1"
+        "DISPLAY": ":1",
+        "TURTLEBOT3_MODEL": "burger"
+        
     },
+
     "forwardPorts": [80], // Mudamos de 6080 para 80!
     "portsAttributes": {
         "80": {
@@ -13,5 +16,5 @@
             "onAutoForward": "openPreview"
         }
     },
-    "postCreateCommand": "pip3 install openai opencv-python"
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y ros-humble-turtlebot3-simulations ros-humble-turtlebot3-gazebo"
 }
