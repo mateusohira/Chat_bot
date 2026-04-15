@@ -6,7 +6,7 @@
 <br>
 
 📱 **Material da Aula 3:**
-`github.com/pedromatumoto/docs/aula03.md`
+`https://github.com/pedromatumoto/ia-na-pratica/`
 
 </div>
 
