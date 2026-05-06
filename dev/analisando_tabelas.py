@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
-
 cliente_ia = OpenAI()
 
 dados_cx = {
@@ -57,10 +56,7 @@ print("--- INICIANDO AUDITORIA DE CX COM IA ---\n")
 # 2. Crie um novo DataFrame (ex: df_problemas) que contenha APENAS:
 #    Status == 'Concluído' E Avaliacao == 'Negativa'
 
-df_filtro = df_setup[(df_setup['Avaliacao']=='Negativa') & (df_setup['Status']=='Concluído')]
-# print(df_filtro)
-for index, row in df_filtro.iterrows():
-    print(f"ID_Ticket: {row['ID_Ticket']} - Comentário: {row['Comentario']}")
+print(f"Encontrados {len(df_problemas)} problemas para analisar.")
 
 # ----------------------------------------------------------------
 # TODO 2: ANÁLISE COM IA (A Mágica)
@@ -70,20 +66,10 @@ for index, row in df_filtro.iterrows():
 # Peça à IA para classificar o texto numa destas categorias: [Logistica, Suporte, Produto].
 # Guarde a resposta da IA na lista 'categorias_ia'.
 
-categorias_ia = []
-for comentario in df_filtro["Comentario"] :
-    # Chamar a API aqui...
-    resposta = cliente_ia.chat.completions.create(
-        model="gpt-4o-mini",
-        temperature=0.2,
-         messages=[
-            {"role":"system", "content": "Você é um assistente de classificação de feedbacks de clientes. Classifique o comentário do cliente em uma das seguintes categorias: Logistica, Suporte, Produto. Responda apenas com a categoria."},
-            {"role":"user", "content": "Classifique cada comentário de clientes nas categorias: Logistica, Suporte, Produto. Responda apenas com a categoria.\n\nComentário: " + comentario}
-        ]
-    )
-    categorias_ia.append(resposta.choices[0].message.content.strip())
-
-print(categorias_ia)
+# categorias_ia = []
+# for comentario in ... :
+#     # Chamar a API aqui...
+#     pass
 
 # ----------------------------------------------------------------
 # TODO 3: ENRIQUECIMENTO E RELATÓRIO FINAL (Pandas)
@@ -92,7 +78,7 @@ print(categorias_ia)
 #    e atribua a ela a lista 'categorias_ia' que acabou de gerar.
 # 2. Faça um groupby pela 'Categoria_Erro' e conte quantos problemas cada uma tem.
 
-df_filtro['Categoria_Erro'] = categorias_ia
-relatorio = df_filtro.groupby('Categoria_Erro').size()
-print("\n📊 Relatório de Problemas por Departamento:")
-print(relatorio)
+# df_problemas['Categoria_Erro'] = categorias_ia
+# relatorio = ...
+# print("\n📊 Relatório de Problemas por Departamento:")
+# print(relatorio)
